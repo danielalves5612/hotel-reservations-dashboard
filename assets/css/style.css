@@ -1,0 +1,102 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-principal);
+}
+
+:root{
+    --fundo-principal: #8c8c8c;
+
+    --cor-primaria: #1E3A5F;
+    --cor-secundaria: #3C6E71;
+    --cor-destaque: #D9A441;
+
+    --cor-card: #e6e6e6;
+    --borda-suave: #E5E7EB;
+    --cor-container: #ffffff;
+
+    --texto-principal: #1F2937;
+    --texto-secundario: #6B7280;
+
+    --status-ativo: #2E8B57;
+    --status-cancelado: #C0392B;
+
+    --font-principal: 'Inter', sans-serif;
+}
+
+body{
+    background-color: var(--fundo-principal);
+    color: var(--texto-principal)
+}
+
+header{
+    background-color: var(--cor-primaria);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    color: var(--cor-container);
+}
+
+main{
+    
+}
+
+div.container{
+    background-color: var(--cor-container);
+    padding: 20px;
+    width: 90%;
+    margin: 20px auto;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px var(--texto-principal);
+}
+
+div.container section {
+    margin-bottom: 40px;
+    background-color: var(--cor-card);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+section.resumo-dashboard{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+section.resumo-dashboard div {
+    background-color: var(--cor-container);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+div.tabela-reserva{
+    margin-top: 20px;
+    background-color: var(--cor-container);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+thead{
+    display: none;
+}
+
+tr{
+    display: block;
+}
+
+td{
+    display: block;
+    margin-bottom: 10px;
+}
+
+td::before{
+    content: attr(data-label)
+}
+
+footer{
+    background-color: var(--cor-primaria);
+    color: var(--cor-container);
+    padding: 20px;
+    text-align: center;
+}

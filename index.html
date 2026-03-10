@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Reservas</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="nome-sistema">
+            <h1>Hotel Aura Palace</h1>
+            <p>Painel de Reservas</p>
+        </div>
+        <div class="informacao-auxiliar">
+            <p>10/03/2026</p>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="resumo-dashboard">
+                <h2>Resumo das Reservas</h2>
+                <div>
+                    <p>Reservas Totais: 20</p>
+                </div>
+                <div>
+                    <p>Reservas Confirmadas: 10</p>
+                </div>
+                <div>
+                    <p>Reservas Canceladas: 10</p>
+                </div>
+            </section>
+            <section class="busca-filtros">
+                <h2>Busca e Filtros</h2>
+                    <form action="#" method="get">
+                        <p>
+                            <label for="nome-reserva">Nome:</label>
+                            <input type="text" name="nome-reserva" id="nome-reserva">
+                        </p>
+                        <p>
+                            <label for="numero-reserva">Numero: </label>
+                            <input type="number" name="numero-reserva" id="numero-reserva">
+                        </p>
+                        <select name="status-reserva" id="status-reserva">
+                            <option value="confirmada">Confirmada</option>
+                            <option value="cancelada">Cancelada</option>
+                            <option value="todas">Todas</option>
+                        </select>
+                        <button type="submit">Nova Reserva</button>
+                </form>
+            </section>
+            <section class="lista-reservas">
+                <h2>Reservas Cadastradas</h2>
+                <div class="tabela-reserva">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N° Reserva</th>
+                                <th>Hóspede</th>
+                                <th>Categoria</th>
+                                <th>Check-in</th>
+                                <th>Check-out</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="N° Reserva: ">001</td>
+                                <td data-label="Hóspede: ">João Silva</td>
+                                <td data-label="Categoria: ">Deluxe</td>
+                                <td data-label="Check-in: ">10/03/2026</td>
+                                <td data-label="Check-out: ">12/03/2026</td>
+                                <td data-label="Status: ">Confirmada</td>
+                                <td>Editar</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p>Projeto de portfólio desenvolvido por Daniel Alves</p>
+    </footer>
+</body>
+</html>
