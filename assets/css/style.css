@@ -27,72 +27,244 @@
 
 body{
     background-color: var(--fundo-principal);
-    color: var(--texto-principal)
 }
 
 header{
     background-color: var(--cor-primaria);
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    align-items: center;
+    padding: 18px 20px;
     color: var(--cor-container);
 }
 
+header h1{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+div.foto-perfil{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--borda-suave);
+}
+
+img.imagem-perfil{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 main{
-    
+    background-color: var(--fundo-principal);
+    color: var(--texto-principal);
 }
 
 div.container{
     background-color: var(--cor-container);
-    padding: 20px;
+    padding: 16px;
     width: 90%;
     margin: 20px auto;
-    border-radius: 20px;
-    box-shadow: 2px 2px 2px var(--texto-principal);
+    border-radius: 22px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-div.container section {
-    margin-bottom: 40px;
-    background-color: var(--cor-card);
-    padding: 30px;
-    border-radius: 10px;
+/* INTRODUÇÃO */
+
+section.introducao{
+    margin-bottom: 20px;
+    padding: 10px 10px 14px 10px;
+    border-bottom: 2px solid var(--borda-suave);
 }
 
-section.resumo-dashboard{
+.introducao p{
+    font-size: 16px;
+    color: var(--texto-secundario);
+    margin-bottom: 4px;
+}
+
+.introducao h2{
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--texto-principal);
+}
+
+/* RESUMO */
+
+.card-resumo{
     display: flex;
-    gap: 20px;
     flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
 }
 
-section.resumo-dashboard div {
-    background-color: var(--cor-container);
-    padding: 20px;
+.card-resumo div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 16px;
+    border-radius: 14px;
+    text-align: center;
+    color: var(--cor-container);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.card-resumo i{
+    font-size: 34px;
+    margin-bottom: 2px;
+    padding: 10px;
+    border-radius: 50%;
+    color: var(--cor-container);
+}
+
+.reservas-totais{
+    background-color: var(--cor-primaria);
+}
+
+.reservas-confirmadas{
+    background-color: var(--status-ativo);
+}
+
+.reservas-canceladas{
+    background-color: var(--status-cancelado);
+}
+
+.reservas-pendentes{
+    background-color: var(--cor-destaque);
+}
+
+.numero{
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--cor-container);
+    margin-bottom: 4px;
+}
+
+.titulo{
+    color: var(--cor-container);
+    font-size: 13px;
+    opacity: 0.95;
+}
+
+/* BUSCA */
+
+.barra-busca{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f5f7fa;
+    border: 1px solid var(--borda-suave);
+    padding: 12px 14px;
     border-radius: 10px;
+    margin-bottom: 16px;
 }
 
-div.tabela-reserva{
+.barra-busca input{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+    color: var(--texto-principal);
+}
+
+.icone-busca{
+    font-size: 18px;
+    color: var(--texto-secundario);
+}
+
+.btn-nova-reserva{
+    width: 100%;
+    padding: 12px;
+    background-color: var(--status-ativo);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* TÍTULOS DE SECTION */
+
+section h2{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.lista-reservas{
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card-reserva{
+    display: flex;
+    align-items: center;
+    gap: 12px;
     background-color: var(--cor-container);
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
 }
 
-thead{
-    display: none;
+.foto-hospede{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
-tr{
-    display: block;
+.foto-hospede img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-td{
-    display: block;
-    margin-bottom: 10px;
+.info-reserva{
+    flex: 1
 }
 
-td::before{
-    content: attr(data-label)
+.info-reserva h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--texto-principal)
 }
+
+.info-reserva p{
+    font-size: 13px;
+    color: var(--texto-secundario)
+}
+
+.status{
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.confirmada{
+    background-color: var(--status-ativo);
+    color: var(--cor-container);
+}
+
+.pendente{
+    background-color: var(--cor-destaque);
+    color: var(--cor-container);
+}
+
+.cancelada{
+    background-color: var(--status-cancelado);
+    color: var(--cor-container);
+}
+
+
+
+/* FOOTER */
 
 footer{
     background-color: var(--cor-primaria);
