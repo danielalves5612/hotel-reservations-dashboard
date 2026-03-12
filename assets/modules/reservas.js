@@ -1,5 +1,7 @@
-const reservas = [
-    {
+let reservas = []
+
+/*
+   {
         id: 1,
         nome: 'João Silva',
         quarto: 'Quarto Duplo',
@@ -22,23 +24,67 @@ const reservas = [
         checkIn: '2026-03-01',
         checkOut: '2026-03-06',
         status: 'pendente'
-    }
-]
+    }*/
 
 const inputBusca = document.querySelector('#buscar-reserva')
+let reservaEmEdicao = null
 
 inputBusca.addEventListener('input', function(e){
     const termoBusca = inputBusca.value.toLowerCase().trim()
     filtrarReservas(termoBusca)
 
 })
+
 document.addEventListener('click', function(e){
     const el = e.target
-    e.preventDefault()
     if(el.classList.contains('btn-nova-reserva')){
+        e.preventDefault()
         criarModal()
     }
+
+    if(el.classList.contains('button-cancelar')){
+        fecharModal()
+    }
+
+    if(el.classList.contains('button-excluir')){
+        const reserva = el.closest('.card-reserva')
+        const idClicado = Number(reserva.dataset.id)
+        reservas = reservas.filter(reserva => reserva.id !== idClicado)
+        salvarReservas()
+        renderizarReservas(reservas)
+    }
+
+    if(el.classList.contains('button-editar')){
+        const reservaClicada = el.closest('.card-reserva')
+        const idClicado = Number(reservaClicada.dataset.id)
+        const reservaSelecionada = reservas.find(reserva => reserva.id === idClicado)
+        criarModal()
+        const nome = document.querySelector('.input-nome')
+        nome.value = reservaSelecionada.nome
+        const checkIn = document.querySelector('.input-checkIn')
+        checkIn.value = reservaSelecionada.checkIn
+        const checkOut = document.querySelector('.input-checkOut')
+        checkOut.value = reservaSelecionada.checkOut
+        const quarto = document.querySelector('.select-quarto')
+        quarto.value = reservaSelecionada.quarto
+        const status = document.querySelector('.select-status')
+        status.value = reservaSelecionada.status
+        reservaEmEdicao = reservaSelecionada
+    }
 })
+
+function salvarReservas(){
+    const json = JSON.stringify(reservas)
+    localStorage.setItem('reservas', json)
+}
+
+function exibirReservas(){
+    const reservasSalvas = localStorage.getItem('reservas')
+    const json = JSON.parse(reservasSalvas)
+    reservas = json
+    salvarReservas()
+    renderizarReservas(reservas)
+}
 
 function filtrarReservas(termoBusca){
     const reservasFiltradas = reservas.filter(reserva => 
@@ -57,12 +103,9 @@ function capitalizar(texto){
     return texto[0].toUpperCase() + texto.slice(1)
 }
 
-function abrirModal(){
-   
-}
-
 function fecharModal(){
-
+    const overlay = document.querySelector('.overlay')
+    overlay.remove()
 }
 
 function criarModal(){
@@ -79,38 +122,64 @@ function criarModal(){
     form.classList.add('form-reserva')
     modal.appendChild(form)
 
+    const labelNome = document.createElement('label')
+    labelNome.htmlFor = 'nome-hospede'
+    labelNome.textContent = 'Nome'
+    form.appendChild(labelNome)
     const inputNome = document.createElement('input')
     inputNome.classList.add('input-nome')
     inputNome.type = 'text'
+    inputNome.id = 'nome-hospede'
     form.appendChild(inputNome)
     inputNome.placeholder = 'Nome do hóspede'
+    const labelCheckIn = document.createElement('label')
+    labelCheckIn.htmlFor = 'data-checkin'
+    labelCheckIn.textContent = 'Check-In'
+    form.appendChild(labelCheckIn)
     const inputCheckIn = document.createElement('input')
     inputCheckIn.classList.add('input-checkIn')
     inputCheckIn.type = 'date'
+    inputCheckIn.id = 'data-checkin'
     form.appendChild(inputCheckIn)
+    const labelCheckOut = document.createElement('label')
+    labelCheckOut.htmlFor = 'data-checkout'
+    labelCheckOut.textContent = 'Check-Out'
+    form.appendChild(labelCheckOut)
     const inputCheckOut = document.createElement('input')
     inputCheckOut.classList.add('input-checkOut')
     inputCheckOut.type = 'date'
+    inputCheckOut.id = 'data-checkout'
     form.appendChild(inputCheckOut)
 
+    const labelQuarto = document.createElement('label')
+    labelQuarto.htmlFor = 'quarto-hospede'
+    labelQuarto.textContent = 'Quarto'
+    form.appendChild(labelQuarto)
     const selectQuarto = document.createElement('select')
     selectQuarto.classList.add('select-quarto')
+    selectQuarto.id = 'quarto-hospede'
     form.appendChild(selectQuarto)
     const optionSingle = document.createElement('option')
-    optionSingle.textContent = 'Single'
+    optionSingle.textContent = 'Quarto Single'
     optionSingle.value = 'single'
     const optionDuplo = document.createElement('option')
-    optionDuplo.textContent = 'Duplo'
+    optionDuplo.textContent = 'Quarto Duplo'
     optionDuplo.value = 'duplo'
     const optionTriplo = document.createElement('option')
-    optionTriplo.textContent = 'Triplo'
+    optionTriplo.textContent = 'Quarto Triplo'
     optionTriplo.value = 'triplo'
 
     selectQuarto.appendChild(optionSingle)
     selectQuarto.appendChild(optionDuplo)
     selectQuarto.appendChild(optionTriplo)
 
+
+    const labelStatus = document.createElement('label')
+    labelStatus.htmlFor = 'status-reserva'
+    labelStatus.textContent = 'Status'
+    form.appendChild(labelStatus)
     const selectStatus = document.createElement('select')
+    selectStatus.id = 'status-reserva'
     selectStatus.classList.add('select-status')
     form.appendChild(selectStatus)
     const optionConfirmada = document.createElement('option')
@@ -141,6 +210,26 @@ function criarModal(){
     const body = document.body
 
     body.appendChild(overlay)
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault()
+        const nome = inputNome.value
+        const checkIn = inputCheckIn.value
+        const checkOut = inputCheckOut.value
+        const quarto = selectQuarto.value
+        const status = selectStatus.value
+        const novaReserva = {
+            id: reservas.length + 1,
+            nome: nome,
+            quarto: quarto, 
+            checkIn: checkIn,
+            checkOut: checkOut,
+            status: status
+        }
+        reservas.push(novaReserva)
+        renderizarReservas()
+        fecharModal()
+    })
 
 }
 
@@ -178,6 +267,7 @@ export default function renderizarReservas(listaReservas = reservas){
         infoReserva.classList.add('info-reserva')
         cardReserva.appendChild(infoReserva)
         const numeroReserva = document.createElement('small')
+        cardReserva.dataset.id = reserva.id
         numeroReserva.classList.add('numero-reserva')
         numeroReserva.textContent = `Reserva #00${reserva.id}` 
         infoReserva.appendChild(numeroReserva)
@@ -186,14 +276,28 @@ export default function renderizarReservas(listaReservas = reservas){
         nomeHospede.textContent = reserva.nome
         const infoQuarto = document.createElement('p')
         infoReserva.appendChild(infoQuarto)
-        infoQuarto.textContent = `${reserva.quarto} • ${reserva.checkIn} - ${reserva.checkOut}`
+        infoQuarto.textContent = `Quarto ${capitalizar(reserva.quarto)} ${reserva.checkIn} - ${reserva.checkOut}`
         const status = document.createElement('span')
         status.classList.add('status', reserva.status)
         status.textContent = capitalizar(reserva.status)
         cardReserva.appendChild(status)
+        const acoes = document.createElement('div')
+        acoes.classList.add('acoes-reserva')
+        cardReserva.appendChild(acoes)
+        const botaoExcluir = document.createElement('button')
+        botaoExcluir.classList.add('button-excluir')
+        botaoExcluir.textContent = 'Excluir'
+        acoes.appendChild(botaoExcluir)
+        const botaoEditar = document.createElement('button')
+        botaoEditar.classList.add('button-editar')
+        botaoEditar.textContent = 'Editar'
+        acoes.appendChild(botaoEditar)
     }
     atualizarResumo()
+    salvarReservas()
 }
+
+exibirReservas()
 
 
 
