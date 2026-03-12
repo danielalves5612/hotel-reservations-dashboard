@@ -23,29 +23,29 @@
             <section class="introducao">
                 <div>
                     <p>Olá, Bem-vindo</p>
-                    <h2>Painel de Reserva</h2>
+                    <h2>Painel de Reservas</h2>
                 </div>
             </section>
             <section class="resumo-dashboard">
                 <div class="card-resumo">
                     <div class="reservas-totais">
                         <i class="fa-solid fa-calendar"></i>
-                        <p class="numero">20</p>
+                        <p class="numero numero-hoje"></p>
                         <p class="titulo">Reservas Hoje</p>
                     </div>
                     <div class="reservas-pendentes">
                         <i class="fa-solid fa-clock"></i>
-                        <p class="numero">20</p>
+                        <p class="numero numero-pendentes"></p>
                         <p class="titulo">Reservas Pendentes</p>
                     </div>
                     <div class="reservas-canceladas">
                         <i class="fa-solid fa-circle-exclamation"></i>
-                        <p class="numero">20</p>
+                        <p class="numero numero-canceladas"></p>
                         <p class="titulo">Reservas Canceladas</p>
                     </div>
                      <div class="reservas-confirmadas">
                         <i class="fa-regular fa-circle-check"></i>
-                        <p class="numero">20</p>
+                        <p class="numero numero-confirmadas"></p>
                         <p class="titulo">Reservas Confirmadas</p>
                     </div>
                 </div>
@@ -60,37 +60,7 @@
                 </form>
             </section>
             <section class="lista-reservas">
-                <div class="card-reserva">
-                    <div class="foto-hospede">
-                        <img src="assets/img/foto-perfil.jpeg" alt="foto de perfil">
-                    </div>
-                    <div class="info-reserva">
-                        <h3>João Silva</h3>
-                        <p>Quarto Duplo • 12/03/2026 - 14/03/2026</p>
-                    </div>
-                    <span class="status confirmada">Confirmada</span>
-                </div>
-
-                <div class="card-reserva">
-                    <div class="foto-hospede">
-                        <img src="assets/img/foto-perfil.jpeg" alt="foto de perfil">
-                    </div>
-                    <div class="info-reserva">
-                        <h3>João Silva</h3>
-                        <p>Quarto Duplo • 12/03/2026 - 14/03/2026</p>
-                    </div>
-                    <span class="status pendente">Pendente</span>
-                </div>
-
-                <div class="card-reserva">
-                    <div class="foto-hospede">
-                        <img src="assets/img/foto-perfil.jpeg" alt="foto de perfil">
-                    </div>
-                    <div class="info-reserva">
-                        <h3>João Silva</h3>
-                        <p>Quarto Duplo • 12/03/2026 - 14/03/2026</p>
-                    </div>
-                    <span class="status cancelada">Cancelada</span>
+                <div class="reservas-container">
                 </div>
             </section>
         </div>
@@ -99,5 +69,6 @@
         <p>Projeto de portfólio desenvolvido por Daniel Alves</p>
     </footer>
     <script src="https://kit.fontawesome.com/82373a1d85.js" crossorigin="anonymous"></script>
+    <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
