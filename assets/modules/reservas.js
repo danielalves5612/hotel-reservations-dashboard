@@ -1,3 +1,4 @@
+import ValidaCPF from './validaCPF.js'
 let reservas = []
 
 /*
@@ -125,52 +126,67 @@ function criarModal(){
     form.classList.add('form-reserva')
     modal.appendChild(form)
 
+    const divNome = document.createElement('div')
+    divNome.classList.add('div-campo')
+    form.appendChild(divNome)
     const labelNome = document.createElement('label')
     labelNome.htmlFor = 'nome-hospede'
     labelNome.textContent = 'Nome'
-    form.appendChild(labelNome)
+    divNome.appendChild(labelNome)
     const inputNome = document.createElement('input')
     inputNome.classList.add('input-nome')
     inputNome.type = 'text'
     inputNome.id = 'nome-hospede'
-    form.appendChild(inputNome)
+    divNome.appendChild(inputNome)
     inputNome.placeholder = 'Nome do hóspede'
+    const divCpf = document.createElement('div')
+    divCpf.classList.add('div-campo')
+    form.appendChild(divCpf)
     const labelCpf = document.createElement('label')
     labelCpf.htmlFor = 'cpf-hospede'
     labelCpf.textContent = 'CPF'
-    form.appendChild(labelCpf)
+    divCpf.appendChild(labelCpf)
     const inputCpf = document.createElement('input')
     inputCpf.classList.add('input-cpf')
     inputCpf.type = 'number'
     inputCpf.id = 'cpf-hospede'
-    form.appendChild(inputCpf)
+    divCpf.appendChild(inputCpf)
+    const divCheckIn = document.createElement('div')
+    divCheckIn.classList.add('div-campo')
+    form.appendChild(divCheckIn)
     const labelCheckIn = document.createElement('label')
     labelCheckIn.htmlFor = 'data-checkin'
     labelCheckIn.textContent = 'Check-In'
-    form.appendChild(labelCheckIn)
+    divCheckIn.appendChild(labelCheckIn)
     const inputCheckIn = document.createElement('input')
     inputCheckIn.classList.add('input-checkIn')
     inputCheckIn.type = 'date'
     inputCheckIn.id = 'data-checkin'
-    form.appendChild(inputCheckIn)
+    divCheckIn.appendChild(inputCheckIn)
+    const divCheckOut = document.createElement('div')
+    divCheckOut.classList.add('div-campo')
+    form.appendChild(divCheckOut)
     const labelCheckOut = document.createElement('label')
     labelCheckOut.htmlFor = 'data-checkout'
     labelCheckOut.textContent = 'Check-Out'
-    form.appendChild(labelCheckOut)
+    divCheckOut.appendChild(labelCheckOut)
     const inputCheckOut = document.createElement('input')
     inputCheckOut.classList.add('input-checkOut')
     inputCheckOut.type = 'date'
     inputCheckOut.id = 'data-checkout'
-    form.appendChild(inputCheckOut)
+    divCheckOut.appendChild(inputCheckOut)
 
+    const divQuarto = document.createElement('div')
+    divQuarto.classList.add('.div-campo')
+    form.appendChild(divQuarto)
     const labelQuarto = document.createElement('label')
     labelQuarto.htmlFor = 'quarto-hospede'
     labelQuarto.textContent = 'Quarto'
-    form.appendChild(labelQuarto)
+    divQuarto.appendChild(labelQuarto)
     const selectQuarto = document.createElement('select')
     selectQuarto.classList.add('select-quarto')
     selectQuarto.id = 'quarto-hospede'
-    form.appendChild(selectQuarto)
+    divQuarto.appendChild(selectQuarto)
     const optionSingle = document.createElement('option')
     optionSingle.textContent = 'Quarto Single'
     optionSingle.value = 'single'
@@ -185,15 +201,17 @@ function criarModal(){
     selectQuarto.appendChild(optionDuplo)
     selectQuarto.appendChild(optionTriplo)
 
-
+    const divStatus = document.createElement('div')
+    divStatus.classList.add('div-campo')
+    form.appendChild(divStatus)
     const labelStatus = document.createElement('label')
     labelStatus.htmlFor = 'status-reserva'
     labelStatus.textContent = 'Status'
-    form.appendChild(labelStatus)
+    divStatus.appendChild(labelStatus)
     const selectStatus = document.createElement('select')
     selectStatus.id = 'status-reserva'
     selectStatus.classList.add('select-status')
-    form.appendChild(selectStatus)
+    divStatus.appendChild(selectStatus)
     const optionConfirmada = document.createElement('option')
     optionConfirmada.textContent = 'Confirmada'
     optionConfirmada.value = 'confirmada'
@@ -208,6 +226,9 @@ function criarModal(){
     selectStatus.appendChild(optionCancelada)
     selectStatus.appendChild(optionConfirmada)
 
+    const divBotoes = document.createElement('div')
+    divBotoes.classList.add('div-campo')
+    form.appendChild(divBotoes)
     const botaoSalvar = document.createElement('button')
     botaoSalvar.classList.add('button-salvar')
     botaoSalvar.type = 'submit'
@@ -216,8 +237,8 @@ function criarModal(){
     botaoCancelar.classList.add('button-cancelar')
     botaoCancelar.type = 'button'
     botaoCancelar.textContent = 'Cancelar'
-    form.appendChild(botaoSalvar)
-    form.appendChild(botaoCancelar)
+    divBotoes.appendChild(botaoSalvar)
+    divBotoes.appendChild(botaoCancelar)
 
     const body = document.body
 
@@ -231,6 +252,13 @@ function criarModal(){
         const checkOut = inputCheckOut.value
         const quarto = selectQuarto.value
         const status = selectStatus.value
+        const cpfvalido =  ValidaCPF(cpf)
+        if(!nome || !checkIn || !checkOut) {
+            return mensagemErro()
+        } 
+        if(!cpfvalido === false) {
+
+        }
         if(reservaEmEdicao === null){
             const novaReserva = {
             id: reservas.length + 1,
@@ -240,7 +268,7 @@ function criarModal(){
             checkIn: checkIn,
             checkOut: checkOut,
             status: status
-        }
+            }
             reservas.push(novaReserva)
             renderizarReservas()
             fecharModal()
@@ -256,9 +284,22 @@ function criarModal(){
             fecharModal()
             reservaEmEdicao = null
         }
-        
     })
+}
 
+function mensagemErro(campo, mensagem){
+    const div = campo.closest('.div-campo')
+    const pErro = div.querySelector('.error-mensagem')
+    const label = div.querySelector('label')
+    mensagem = `O ${label.textContent} deve ser preenchido`
+    if(!p === null){
+        const p = document.createElement('p')
+        p.classList.add('error-message')
+        p.textContent = mensagem
+        div.appendChild(p)
+    }else{
+
+    }
 }
 
 function atualizarResumo(){
