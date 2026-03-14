@@ -61,6 +61,8 @@ document.addEventListener('click', function(e){
         criarModal()
         const nome = document.querySelector('.input-nome')
         nome.value = reservaSelecionada.nome
+        const cpf = document.querySelector('.input-cpf')
+        cpf.value = reservaSelecionada.cpf
         const checkIn = document.querySelector('.input-checkIn')
         checkIn.value = reservaSelecionada.checkIn
         const checkOut = document.querySelector('.input-checkOut')
@@ -89,6 +91,7 @@ function exibirReservas(){
 function filtrarReservas(termoBusca){
     const reservasFiltradas = reservas.filter(reserva => 
         reserva.nome.toLowerCase().includes(termoBusca) ||
+        String(reserva.cpf).toLowerCase().includes(termoBusca) ||
         reserva.quarto.toLowerCase().includes(termoBusca) ||
         reserva.status.toLowerCase().includes(termoBusca) ||
         reserva.checkIn.toLowerCase().includes(termoBusca) ||
@@ -132,6 +135,15 @@ function criarModal(){
     inputNome.id = 'nome-hospede'
     form.appendChild(inputNome)
     inputNome.placeholder = 'Nome do hóspede'
+    const labelCpf = document.createElement('label')
+    labelCpf.htmlFor = 'cpf-hospede'
+    labelCpf.textContent = 'CPF'
+    form.appendChild(labelCpf)
+    const inputCpf = document.createElement('input')
+    inputCpf.classList.add('input-cpf')
+    inputCpf.type = 'number'
+    inputCpf.id = 'cpf-hospede'
+    form.appendChild(inputCpf)
     const labelCheckIn = document.createElement('label')
     labelCheckIn.htmlFor = 'data-checkin'
     labelCheckIn.textContent = 'Check-In'
@@ -214,21 +226,37 @@ function criarModal(){
     form.addEventListener('submit', function(e){
         e.preventDefault()
         const nome = inputNome.value
+        const cpf = inputCpf.value
         const checkIn = inputCheckIn.value
         const checkOut = inputCheckOut.value
         const quarto = selectQuarto.value
         const status = selectStatus.value
-        const novaReserva = {
+        if(reservaEmEdicao === null){
+            const novaReserva = {
             id: reservas.length + 1,
             nome: nome,
+            cpf: cpf,
             quarto: quarto, 
             checkIn: checkIn,
             checkOut: checkOut,
             status: status
         }
-        reservas.push(novaReserva)
-        renderizarReservas()
-        fecharModal()
+            reservas.push(novaReserva)
+            renderizarReservas()
+            fecharModal()
+        }else{
+            reservaEmEdicao.nome = nome
+            reservaEmEdicao.cpf = cpf
+            reservaEmEdicao.quarto = quarto
+            reservaEmEdicao.checkIn = checkIn
+            reservaEmEdicao.checkOut = checkOut
+            reservaEmEdicao.status = status
+            salvarReservas()
+            renderizarReservas()
+            fecharModal()
+            reservaEmEdicao = null
+        }
+        
     })
 
 }
