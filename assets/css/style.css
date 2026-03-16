@@ -337,6 +337,13 @@ section h2{
     gap: 14px;
 }
 
+.error-message{
+    color: var(--status-cancelado);
+    font-size: 12px;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
 .form-reserva input, .form-reserva select{
     width: 100%;
     border: 1px solid var(--borda-suave);

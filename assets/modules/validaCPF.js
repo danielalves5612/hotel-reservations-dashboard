@@ -27,7 +27,7 @@ export default class ValidaCPF{
 
     }
 
-    static digito(cpfParcial){
+    digito(cpfParcial){
         const criaArray = Array.from(cpfParcial)
         let recursivo = cpfParcial.length + 1
         let total = criaArray.reduce(function(acumulador, valor){

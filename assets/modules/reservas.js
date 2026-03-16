@@ -36,6 +36,7 @@ inputBusca.addEventListener('input', function(e){
 
 })
 
+
 document.addEventListener('click', function(e){
     const el = e.target
     if(el.classList.contains('btn-nova-reserva')){
@@ -246,18 +247,48 @@ function criarModal(){
 
     form.addEventListener('submit', function(e){
         e.preventDefault()
+        let temErro = false
         const nome = inputNome.value
         const cpf = inputCpf.value
         const checkIn = inputCheckIn.value
         const checkOut = inputCheckOut.value
         const quarto = selectQuarto.value
         const status = selectStatus.value
-        const cpfvalido =  ValidaCPF(cpf)
-        if(!nome || !checkIn || !checkOut) {
-            return mensagemErro()
-        } 
-        if(!cpfvalido === false) {
-
+        const cpfValido =  new ValidaCPF(cpf)
+        const cpfInputado = cpfValido.valida()
+        if(!nome) {
+            mensagemErro(inputNome, 'O Nome deve ser preenchido.')
+            temErro = true
+        }
+        if(!cpf){
+            mensagemErro(inputCpf, 'O CPF precisa ser preenchido.')
+            temErro = true
+        }else if(cpfInputado === false){
+            mensagemErro(inputCpf, 'Por favor, digite um CPF válido.')
+            temErro = true
+        }
+        if(!checkIn){
+            mensagemErro(inputCheckIn, 'Selecione uma data para o Check-In.')
+            temErro = true
+        }
+        if(!checkOut){
+            mensagemErro(inputCheckOut, 'Selecione uma data para o Check-Out.')
+            temErro = true
+        }
+        if(temErro === true){
+            return
+        }
+        const cpfExiste = reservas.some(reserva => reserva.cpf === cpf)
+        const cpfEditado = reservas.some(reserva => reserva.id !== reservaEmEdicao.id)
+        if(reservaEmEdicao === null){
+            if(cpfExiste === true){
+                mensagemErro(inputCpf, 'CPF cadastrado em outra Reserva')
+                return
+            }
+        }else if(reservaEmEdicao !== true){
+            if(cpfEditado === true){
+                mensagemErro(inputCpf, 'CPF cadastrado em outra Reserva')
+            }
         }
         if(reservaEmEdicao === null){
             const novaReserva = {
@@ -272,6 +303,7 @@ function criarModal(){
             reservas.push(novaReserva)
             renderizarReservas()
             fecharModal()
+            salvarReservas()
         }else{
             reservaEmEdicao.nome = nome
             reservaEmEdicao.cpf = cpf
@@ -285,20 +317,44 @@ function criarModal(){
             reservaEmEdicao = null
         }
     })
+
+    inputNome.addEventListener('input', function(e){
+        const el = e.target
+        limparErro(el)
+    })
+    inputCpf.addEventListener('input', function(e){
+        const el = e.target
+        limparErro(el)
+    })
+    inputCheckIn.addEventListener('input', function(e){
+        const el = e.target
+        limparErro(el)
+    })
+    inputCheckOut.addEventListener('input', function(e){
+        const el = e.target
+        limparErro(el)
+    })
 }
 
 function mensagemErro(campo, mensagem){
     const div = campo.closest('.div-campo')
-    const pErro = div.querySelector('.error-mensagem')
+    const pErro = div.querySelector('.error-message')
     const label = div.querySelector('label')
-    mensagem = `O ${label.textContent} deve ser preenchido`
-    if(!p === null){
+    if(pErro === null){
         const p = document.createElement('p')
         p.classList.add('error-message')
         p.textContent = mensagem
         div.appendChild(p)
     }else{
+        pErro.textContent = mensagem
+    }
+}
 
+function limparErro(campo){
+    const div = campo.closest('.div-campo')
+    const p = div.querySelector('.error-message')
+    if(p !== null){
+        p.remove()
     }
 }
 
