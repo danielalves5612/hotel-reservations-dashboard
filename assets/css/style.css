@@ -275,6 +275,7 @@ section h2{
 
 .info-reserva p{
     font-size: 13px;
+    margin-bottom: 4px 0;
     color: var(--texto-secundario);
 }
 
