@@ -70,7 +70,7 @@ Este projeto foi desenvolvido com foco em:
 
 📸 Preview
 
-![alt text](image.png)
+![alt text](assets/img/image.png)
 
 ---
 
