@@ -10,7 +10,7 @@
 
     --cor-primaria: #1E3A5F;
     --cor-secundaria: #3C6E71;
-    --cor-destaque: #D9A441;
+    --cor-destaque: #C28A2E;
 
     --cor-card: #e6e6e6;
     --borda-suave: #E5E7EB;
@@ -19,14 +19,18 @@
     --texto-principal: #1F2937;
     --texto-secundario: #6B7280;
 
-    --status-ativo: #2E8B57;
-    --status-cancelado: #C0392B;
+    --status-ativo: #1F7A63;
+    --status-cancelado: #B23A2E;
 
     --font-principal: 'Inter', sans-serif;
 }
 
 body{
     background-color: var(--fundo-principal);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
 }
 
 header{
@@ -58,6 +62,7 @@ img.imagem-perfil{
 }
 
 main{
+    flex: 1;
     background-color: var(--fundo-principal);
     color: var(--texto-principal);
 }
@@ -67,8 +72,8 @@ div.container{
     padding: 16px;
     width: 90%;
     margin: 20px auto;
-    border-radius: 22px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 /* INTRODUÇÃO */
@@ -185,6 +190,11 @@ section.introducao{
     border-radius: 10px;
     font-size: 14px;
     font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.button-cancelar{
+    margin-top: 10px;
 }
 
 /* TÍTULOS DE SECTION */
@@ -203,10 +213,11 @@ section h2{
 
 .card-reserva{
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 12px;
     background-color: var(--cor-container);
-    border-radius: 14px;
+    border-radius: 10px;
     padding: 14px 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     margin-bottom: 12px;
@@ -221,29 +232,34 @@ section h2{
 
 .acoes-reserva{
     display: flex;
-    flex-direction: row;
+    width: 100%;
     gap: 10px;
+    justify-content: center;
 }
 
 .button-excluir {
     background-color: var(--status-cancelado);
     color: var(--cor-container);
-    padding: 5px;
+    font-size: 13px;
+    padding: 8px 16px;
+    font-weight: 500;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 .button-editar{
     background-color: var(--cor-destaque);
     color: var(--cor-container);
-    padding: 5px;
+    padding: 8px 20px;
+    font-weight: 500;
     border: none;
     border-radius: 5px;
 }
 
 .foto-hospede{
-    width: 44px;
-    height: 44px;
+    display: block;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
@@ -257,32 +273,40 @@ section h2{
 
 .info-reserva{
     flex: 1;
+    text-align: center;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
 }
 
 .numero-reserva{
-    display: block;
     font-size: 12px;
     color: var(--texto-secundario);
     margin-bottom: 2px;
 }
 
 .info-reserva h3{
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
+    line-height: 1.2;
+    word-break: break-word;
     color: var(--texto-principal);
     margin-bottom: 2px;
 }
 
 .info-reserva p{
-    font-size: 13px;
-    margin-bottom: 4px 0;
+    font-size: 14px;
+    margin: 0;
     color: var(--texto-secundario);
 }
 
 .status{
-    font-size: 12px;
+    display: block;
+    font-size: 13px;
     font-weight: 600;
-    padding: 6px 12px;
+    padding: 6px 18px;
     border-radius: 999px;
     white-space: nowrap;
 }
@@ -419,4 +443,139 @@ footer{
     color: var(--cor-container);
     padding: 20px;
     text-align: center;
+    white-space: nowrap;
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+    div.container {
+        width: min(1100px, 92%);
+        padding: 24px;
+        margin: 32px auto;
+        border-radius: 14px;
+    }
+
+    section.introducao {
+        padding: 8px 4px 18px 4px;
+        margin-bottom: 24px;
+    }
+
+    .introducao h2 {
+        font-size: 30px;
+    }
+
+    .card-resumo {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+
+    .card-resumo div {
+        min-height: 140px;
+        border-radius: 10px;
+    }
+
+    .busca-filtros form{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .busca-filtros{
+        flex: 1;
+        margin-bottom: 0;
+        height: 40px;
+    }
+
+    .barra-busca {
+        flex: 1;
+        margin-bottom: 0;
+        height: 48px;
+    }
+
+    .btn-nova-reserva {
+        width: auto;
+        flex-shrink: 0;
+        margin: 0;
+        height: 40px;
+        min-width: 180px;
+        padding: 12px 18px;
+        border-radius: 8px;
+    }
+
+    .lista-reservas {
+        gap: 16px;
+    }
+
+    .card-reserva {
+        display: grid;
+        grid-template-columns: 56px 1fr auto auto;
+        align-items: center;
+        gap: 18px;
+        padding: 16px 18px;
+        border-radius: 10px;
+    }
+
+    .foto-hospede {
+        width: 56px;
+        height: 56px;
+    }
+
+    .info-reserva {
+        width: 100%;
+        align-items: flex-start;
+        text-align: left;
+        gap: 3px;
+    }
+
+    .numero-reserva {
+        margin-bottom: 4px;
+    }
+
+    .info-reserva h3 {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
+    .info-reserva p {
+        font-size: 14px;
+    }
+
+    .status {
+        margin: 0;
+        justify-self: center;
+        font-size: 12px;
+        padding: 7px 14px;
+    }
+
+    .acoes-reserva {
+        width: auto;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
+    .button-excluir,
+    .button-editar {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .modal {
+        max-width: 520px;
+        border-radius: 14px;
+        padding: 28px 24px;
+    }
+
+    .form-reserva {
+        gap: 16px;
+    }
+
+    .button-salvar,
+    .button-cancelar {
+        border-radius: 8px;
+    }
 }

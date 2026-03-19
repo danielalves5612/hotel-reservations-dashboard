@@ -1,2 +1,2 @@
-import renderizarReservas from "../modules/reservas.js";
-renderizarReservas()
+import {initReservasApp} from "../modules/reservas.js";
+initReservasApp()
