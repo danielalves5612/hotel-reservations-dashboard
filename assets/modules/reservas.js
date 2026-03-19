@@ -68,22 +68,19 @@ function handleSubmit(campos) {
 
     if (temErro) return;
 
-    if (reservaEmEdicao === null) {
-        const cpfExiste = reservas.some(reserva => reserva.cpf === cpf);
+    const nomeNormalizado = nome.toLowerCase().trim();
 
-        if (cpfExiste) {
-            mensagemErro(inputCpf, 'CPF cadastrado em outra reserva.');
-            return;
-        }
-    } else {
-        const cpfExiste = reservas.some(reserva =>
-            reserva.cpf === cpf && reserva.id !== reservaEmEdicao.id
-        );
+    const reservaExistente = reservas.find(reserva =>
+        reserva.cpf === cpf &&
+        reserva.id !== reservaEmEdicao?.id
+    );
 
-        if (cpfExiste) {
-            mensagemErro(inputCpf, 'CPF cadastrado em outra reserva.');
-            return;
-        }
+    if (
+        reservaExistente &&
+        reservaExistente.nome.toLowerCase().trim() !== nomeNormalizado
+    ) {
+        mensagemErro(inputCpf, 'CPF já cadastrado para outro hóspede.');
+        return;
     }
 
     if (reservaEmEdicao === null) {
